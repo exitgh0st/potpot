@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AnimeCollectionComponent } from './pages/anime-collection/anime-collection.component';
-import { AnimeComponent } from './pages/anime/anime.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AnimeListComponent } from './pages/anime-list/anime-list.component';
+import { AnimeDetailComponent } from './pages/anime-detail/anime-detail.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AnimeCollectionComponent,
-    AnimeComponent
+    AnimeListComponent,
+    AnimeDetailComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

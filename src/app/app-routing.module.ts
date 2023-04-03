@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AnimeCollectionComponent } from './pages/anime-collection/anime-collection.component';
+import { AnimeListComponent } from './pages/anime-list/anime-list.component';
+import { AnimeDetailComponent } from './pages/anime-detail/anime-detail.component';
 
 const routes: Routes = [
-  { path: '', component: AnimeCollectionComponent }
+  { path: 'anime', component: AnimeListComponent },
+  { path: 'anime/:id', component: AnimeDetailComponent }
 ];
 
 @NgModule({

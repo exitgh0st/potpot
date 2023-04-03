@@ -1,5 +1,5 @@
 export interface Anime {
-  name: string;
-  genre: string;
-  rating: number;
+  id: string;
+  title: string;
+  synopsis: string;
 }

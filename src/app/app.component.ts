@@ -6,4 +6,11 @@ import { environment } from 'src/environment/environment';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {}
+export class AppComponent {
+  env?: string;
+  title = 'potpot';
+
+  ngOnInit() {
+    this.env = environment.env;
+  }
+}

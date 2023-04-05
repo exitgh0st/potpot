@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environment/environment';
 import { Anime } from '../interfaces/anime';
 
+import { config } from 'dotenv';
+config();
+
 @Injectable({
   providedIn: 'root'
 })

@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://potpot-server.onrender.com'
+  apiUrl: 'https://staging-potpot-server.onrender.com'
 };

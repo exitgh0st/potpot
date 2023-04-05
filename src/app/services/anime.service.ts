@@ -13,10 +13,10 @@ export class AnimeService {
   constructor(private http: HttpClient) {}
 
   getAnimes(): Observable<Anime[]> {
-    return this.http.get<Anime[]>(`${process.env['API_URL']}/api/animes`);
+    return this.http.get<Anime[]>(`${environment.apiUrl}/api/animes`);
   }
 
   getAnime(id: string): Observable<Anime> {
-    return this.http.get<Anime>(`${process.env['API_URL']}/api/animes/${id}`);
+    return this.http.get<Anime>(`${environment.apiUrl}/api/animes/${id}`);
   }
 }

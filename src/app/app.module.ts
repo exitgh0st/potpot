@@ -6,19 +6,12 @@ import { AnimeDetailComponent } from './pages/anime-detail/anime-detail.componen
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    AnimeListComponent,
-    AnimeDetailComponent,
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule
+require('dotenv').config();
 
-  ],
+@NgModule({
+  declarations: [AppComponent, AnimeListComponent, AnimeDetailComponent],
+  imports: [BrowserModule, HttpClientModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,12 +1,16 @@
 <table>
-    <tr>
-      <th>Id</th>
-      <th>Title</th>
-      <th>Synopsis</th>
-    </tr>
-    <tr *ngFor="let anime of animes">
-      <td>{{ anime.id }}</td>
-      <td>{{ anime.title}}</td>
-      <td>{{ anime.synopsis }}</td>
-    </tr>
-  </table>
+  <tr>
+    <th>Id</th>
+    <th>Title</th>
+    <th>Synopsis</th>
+    <th>Status</th>
+    <th>Genre</th>
+  </tr>
+  <tr *ngFor="let anime of animes">
+    <td>{{ anime.id }}</td>
+    <td>{{ anime.title }}</td>
+    <td>{{ anime.synopsis }}</td>
+    <td>{{ anime.status.value }}</td>
+    <td>{{ anime.genre.title }}</td>
+  </tr>
+</table>

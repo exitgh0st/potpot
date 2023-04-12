@@ -2,9 +2,19 @@
 <table>
   <tr>
     <th>Id</th>
-    <th>Title</th>
+    <th class="title-container" (click)="switchTitleSortOrder()">
+      <span class="title-header">Title</span>
+      <span class="title-pointer material-icons" [class.title-pointer-visible]="titleSortOrder !== undefined">
+        {{ titleSortIconName }}
+      </span>
+    </th>
     <th>Synopsis</th>
-    <th>Status</th>
+    <th class="title-container" (click)="switchStatusSortOrder()">
+      <span class="title-header">Status</span>
+      <span class="title-pointer material-icons" [class.title-pointer-visible]="statusSortOrder !== undefined">
+        {{ statusSortIconName }}
+      </span>
+    </th>
     <th>Genre</th>
   </tr>
   <tr *ngFor="let anime of animes">

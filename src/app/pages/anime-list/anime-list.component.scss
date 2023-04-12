@@ -1,12 +1,32 @@
 table {
-    border: 1px black solid;
+  border: 1px black solid;
 }
 
-
 th {
-    border: 1px black solid;
+  border: 1px black solid;
 }
 
 td {
-    border: 1px black solid;
+  border: 1px black solid;
+}
+
+.title-container {
+  display: flex;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-pointer {
+  visibility: hidden;
+  margin: none;
+  padding: none;
+}
+
+.title-container:hover .title-pointer {
+  visibility: visible;
+}
+
+.title-pointer-visible {
+  visibility: visible;
 }

@@ -5,11 +5,12 @@ import { AnimeDetailComponent } from './pages/anime-detail/anime-detail.componen
 
 const routes: Routes = [
   { path: 'anime', component: AnimeListComponent },
-  { path: 'anime/:id', component: AnimeDetailComponent }
+  { path: 'anime/:id', component: AnimeDetailComponent },
+  { path: '', pathMatch: 'prefix', redirectTo: 'anime' }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -6,5 +6,5 @@ export interface Anime {
   title: string;
   synopsis: string;
   status: Status;
-  genre: Genre;
+  genres: Genre[];
 }

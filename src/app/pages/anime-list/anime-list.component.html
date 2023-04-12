@@ -1,3 +1,4 @@
+<h1>Anime</h1>
 <table>
   <tr>
     <th>Id</th>
@@ -11,6 +12,6 @@
     <td>{{ anime.title }}</td>
     <td>{{ anime.synopsis }}</td>
     <td>{{ anime.status.value }}</td>
-    <td>{{ anime.genre.title }}</td>
+    <td>{{ getGenreString(anime.genres) }}</td>
   </tr>
 </table>

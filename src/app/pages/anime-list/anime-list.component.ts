@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { Anime } from 'src/app/interfaces/anime';
+import { Genre } from 'src/app/interfaces/genre';
 import { AnimeService } from 'src/app/services/anime.service';
 
 @Component({
@@ -16,8 +17,14 @@ export class AnimeListComponent {
   ngOnInit() {
     const animeList$ = this.animeService.getAnimes();
 
-    lastValueFrom(animeList$).then(animeList => {
+    lastValueFrom(animeList$).then((animeList) => {
       this.animes = animeList;
     });
+  }
+
+  getGenreString(genres: Genre[]) {
+    let genreMap = genres.map((genre) => genre.title);
+
+    return genreMap.join(',');
   }
 }

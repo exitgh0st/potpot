@@ -11,12 +11,16 @@ import { AnimeService } from 'src/app/services/anime.service';
 })
 export class AnimeListComponent {
   animes?: Anime[];
+  filteredAnimes?: Anime[];
 
   titleSortOrder?: SortOrder;
   titleSortIconName: SortArrow = 'arrow_drop_down';
 
   statusSortOrder?: SortOrder;
   statusSortIconName: SortArrow = 'arrow_drop_down';
+
+  statusFilter: string = 'on_hiatus';
+  genreFilter: string = 'Action';
 
   constructor(private animeService: AnimeService) {}
 
@@ -25,6 +29,7 @@ export class AnimeListComponent {
 
     lastValueFrom(animeList$).then((animeList) => {
       this.animes = animeList;
+      this.filteredAnimes = [...animeList];
     });
   }
 
@@ -61,33 +66,71 @@ export class AnimeListComponent {
   }
 
   sortByTitle() {
-    if (!this.animes) {
+    if (!this.filteredAnimes) {
       return;
     }
 
     switch (this.titleSortOrder) {
       case SortOrder.ASCENDING:
-        this.animes.sort((anime_a, anime_b) => anime_a.title.localeCompare(anime_b.title));
+        this.filteredAnimes.sort((anime_a, anime_b) => anime_a.title.localeCompare(anime_b.title));
         break;
       case SortOrder.DESCENDING:
-        this.animes.sort((anime_b, anime_a) => anime_a.title.localeCompare(anime_b.title));
+        this.filteredAnimes.sort((anime_b, anime_a) => anime_a.title.localeCompare(anime_b.title));
         break;
     }
   }
 
   sortByStatus() {
-    if (!this.animes) {
+    if (!this.filteredAnimes) {
       return;
     }
 
     switch (this.statusSortOrder) {
       case SortOrder.ASCENDING:
-        this.animes.sort((anime_a, anime_b) => anime_a.status.value.localeCompare(anime_b.status.value));
+        this.filteredAnimes.sort((anime_a, anime_b) => anime_a.status.value.localeCompare(anime_b.status.value));
         break;
       case SortOrder.DESCENDING:
-        this.animes.sort((anime_b, anime_a) => anime_a.status.value.localeCompare(anime_b.status.value));
+        this.filteredAnimes.sort((anime_b, anime_a) => anime_a.status.value.localeCompare(anime_b.status.value));
         break;
     }
+  }
+
+  filterByStatus(status: string) {
+    if (!this.animes) {
+      return;
+    }
+
+    this.filteredAnimes = this.animes.filter((anime) => {
+      if (anime.status.value == status) {
+        return true;
+      }
+
+      return false;
+    });
+  }
+
+  filterByGenre(genreFilter: string) {
+    if (!this.animes) {
+      return;
+    }
+
+    this.filteredAnimes = this.animes.filter((anime) => {
+      for (let genre of anime.genres) {
+        if (genre.title == genreFilter) {
+          return true;
+        }
+      }
+
+      return false;
+    });
+  }
+
+  filterStatus() {
+    this.filterByStatus(this.statusFilter);
+  }
+
+  filterGenre() {
+    this.filterByGenre(this.genreFilter);
   }
 }
 

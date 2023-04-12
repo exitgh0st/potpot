@@ -1,4 +1,10 @@
 <h1>Anime</h1>
+<p>Status Filter:</p>
+<input [(ngModel)]="statusFilter" />
+<button (click)="filterStatus()">Filter</button>
+<p>Genre Filter:</p>
+<input [(ngModel)]="genreFilter" />
+<button (click)="filterGenre()">Filter</button>
 <table>
   <tr>
     <th>Id</th>
@@ -17,7 +23,7 @@
     </th>
     <th>Genre</th>
   </tr>
-  <tr *ngFor="let anime of animes">
+  <tr *ngFor="let anime of filteredAnimes">
     <td>{{ anime.id }}</td>
     <td>{{ anime.title }}</td>
     <td>{{ anime.synopsis }}</td>

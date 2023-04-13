@@ -2,7 +2,7 @@ import { Status } from './status';
 import { Genre } from './genre';
 
 export interface Anime {
-  id: number;
+  id: string;
   title: string;
   synopsis: string;
   status: Status;

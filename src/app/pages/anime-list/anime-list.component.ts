@@ -4,6 +4,13 @@ import { Anime } from 'src/app/interfaces/anime';
 import { Genre } from 'src/app/interfaces/genre';
 import { AnimeService } from 'src/app/services/anime.service';
 
+enum SortOrder {
+  ASCENDING = 'arrow_drop_up',
+  DESCENDING = 'arrow_drop_down'
+}
+
+type SortDetail = undefined | SortOrder;
+
 @Component({
   selector: 'app-anime-list',
   templateUrl: './anime-list.component.html',
@@ -13,11 +20,13 @@ export class AnimeListComponent {
   animes?: Anime[];
   filteredAnimes?: Anime[];
 
-  titleSortOrder?: SortOrder;
-  titleSortIconName: SortArrow = 'arrow_drop_down';
+  sortDetails: { title: SortDetail; status: SortDetail } = {
+    title: undefined,
+    status: undefined
+  };
 
+  titleSortOrder?: SortOrder;
   statusSortOrder?: SortOrder;
-  statusSortIconName: SortArrow = 'arrow_drop_down';
 
   statusFilter: string = 'on_hiatus';
   genreFilter: string = 'Action';
@@ -34,64 +43,51 @@ export class AnimeListComponent {
   }
 
   getGenreString(genres: Genre[]) {
-    let genreMap = genres.map((genre) => genre.title);
+    const genreMap = genres.map((genre) => genre.title);
 
     return genreMap.join(',');
   }
 
-  switchTitleSortOrder() {
-    this.statusSortOrder = undefined;
-
-    if (this.titleSortOrder != SortOrder.ASCENDING) {
-      this.titleSortOrder = SortOrder.ASCENDING;
-    } else {
-      this.titleSortOrder = SortOrder.DESCENDING;
-    }
-
-    this.titleSortIconName = this.titleSortOrder;
-    this.sortByTitle();
+  clearSortOrders() {
+    this.sortDetails.title = undefined;
+    this.sortDetails.status = undefined;
   }
 
-  switchStatusSortOrder() {
-    this.titleSortOrder = undefined;
+  switchSortOrder(sortHeader: keyof typeof this.sortDetails) {
+    let sortOrder: SortOrder;
 
-    if (this.statusSortOrder != SortOrder.ASCENDING) {
-      this.statusSortOrder = SortOrder.ASCENDING;
+    if (this.sortDetails[sortHeader] !== SortOrder.ASCENDING) {
+      sortOrder = SortOrder.ASCENDING;
     } else {
-      this.statusSortOrder = SortOrder.DESCENDING;
+      sortOrder = SortOrder.DESCENDING;
     }
 
-    this.statusSortIconName = this.statusSortOrder;
-    this.sortByStatus();
+    this.clearSortOrders();
+    this.sortDetails[sortHeader] = sortOrder;
+    this.sortBy(sortHeader, sortOrder);
   }
 
-  sortByTitle() {
+  sortBy(sortHeader: keyof typeof this.sortDetails, sortOrder: SortOrder) {
     if (!this.filteredAnimes) {
       return;
     }
 
-    switch (this.titleSortOrder) {
+    switch (sortOrder) {
       case SortOrder.ASCENDING:
-        this.filteredAnimes.sort((anime_a, anime_b) => anime_a.title.localeCompare(anime_b.title));
+        this.filteredAnimes.sort((anime_a, anime_b) => this.sortByHeader(sortHeader, anime_a, anime_b));
         break;
       case SortOrder.DESCENDING:
-        this.filteredAnimes.sort((anime_b, anime_a) => anime_a.title.localeCompare(anime_b.title));
+        this.filteredAnimes.sort((anime_b, anime_a) => this.sortByHeader(sortHeader, anime_a, anime_b));
         break;
     }
   }
 
-  sortByStatus() {
-    if (!this.filteredAnimes) {
-      return;
-    }
-
-    switch (this.statusSortOrder) {
-      case SortOrder.ASCENDING:
-        this.filteredAnimes.sort((anime_a, anime_b) => anime_a.status.value.localeCompare(anime_b.status.value));
-        break;
-      case SortOrder.DESCENDING:
-        this.filteredAnimes.sort((anime_b, anime_a) => anime_a.status.value.localeCompare(anime_b.status.value));
-        break;
+  sortByHeader(sortHeader: keyof typeof this.sortDetails, anime_a: Anime, anime_b: Anime) {
+    switch (sortHeader) {
+      case 'title':
+        return anime_a.title.localeCompare(anime_b.title);
+      case 'status':
+        return anime_a.status.value.localeCompare(anime_b.status.value);
     }
   }
 
@@ -133,14 +129,3 @@ export class AnimeListComponent {
     this.filterByGenre(this.genreFilter);
   }
 }
-
-export class SortDetail {
-  constructor(private filter: string, private sortOrder: SortOrder) {}
-}
-
-export enum SortOrder {
-  ASCENDING = 'arrow_drop_down',
-  DESCENDING = 'arrow_drop_up'
-}
-
-export type SortArrow = 'arrow_drop_down' | 'arrow_drop_up';

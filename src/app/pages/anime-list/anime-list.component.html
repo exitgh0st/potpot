@@ -1,28 +1,44 @@
-<h1>Anime</h1>
-<p>Status Filter:</p>
-<input [(ngModel)]="statusFilter" />
-<button (click)="filterStatus()">Filter</button>
-<p>Genre Filter:</p>
-<input [(ngModel)]="genreFilter" />
-<button (click)="filterGenre()">Filter</button>
-<table>
+<span class="page-title">Anime</span>
+<div class="filters-container">
+  <div class="status-filter-container">
+    <span>Status Filter:</span>
+    <input class="filter-input" [(ngModel)]="statusFilter" />
+    <button class="filter-button" (click)="filterStatus()">Filter</button>
+  </div>
+
+  <div class="genre-filter-container">
+    <span>Genre Filter:</span>
+    <input class="filter-input" [(ngModel)]="genreFilter" />
+    <button class="filter-button" (click)="filterGenre()">Filter</button>
+  </div>
+</div>
+
+<table cellspacing="0">
   <tr>
-    <th>Id</th>
-    <th class="title-container" (click)="switchTitleSortOrder()">
-      <span class="title-header">Title</span>
-      <span class="title-pointer material-icons" [class.title-pointer-visible]="titleSortOrder !== undefined">
-        {{ titleSortIconName }}
-      </span>
+    <th>
+      <div class="header-container">Id</div>
     </th>
-    <th>Synopsis</th>
-    <th class="title-container" (click)="switchStatusSortOrder()">
-      <span class="title-header">Status</span>
-      <span class="title-pointer material-icons" [class.title-pointer-visible]="statusSortOrder !== undefined">
-        {{ statusSortIconName }}
-      </span>
+    <th>
+      <div class="header-container header-clickable" (click)="switchSortOrder('title')">
+        <span>Title</span>
+        <span class="material-icons" [class.header-pointer]="sortDetails.title == undefined">
+          {{ sortDetails.title ? sortDetails.title : "arrow_drop_up" }}
+        </span>
+      </div>
     </th>
-    <th>Genre</th>
+    <th><div class="header-container">Synopsis</div></th>
+    <th>
+      <div class="header-container header-clickable" (click)="switchSortOrder('status')">
+        <span>Status</span>
+        <span class="material-icons" [class.header-pointer]="sortDetails.status == undefined">
+          {{ sortDetails.status ? sortDetails.status : "arrow_drop_up" }}
+        </span>
+      </div>
+    </th>
+
+    <th><div class="header-container">Genre</div></th>
   </tr>
+
   <tr *ngFor="let anime of filteredAnimes">
     <td>{{ anime.id }}</td>
     <td>{{ anime.title }}</td>

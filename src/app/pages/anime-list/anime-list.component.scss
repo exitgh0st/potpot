@@ -1,32 +1,65 @@
+.page-title {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.filters-container {
+  display: flex;
+  padding: 8px 0px;
+  font-size: 18px;
+}
+
+.genre-filter-container {
+  padding-left: 16px;
+}
+
+.filter-input {
+  font-size: 18px;
+  font-family: "EB Garamond";
+  padding: 4px 4px;
+  margin: 0px 4px;
+}
+
+.filter-button {
+  font-size: 18px;
+  font-family: "EB Garamond";
+  padding: 4px 4px;
+}
+
 table {
   border: 1px black solid;
+  font-size: 18px;
+}
+
+tr:nth-child(odd) td {
+  background-color: #c0c0c0;
 }
 
 th {
-  border: 1px black solid;
+  background-color: black;
+  padding: 4px 8px;
 }
 
 td {
-  border: 1px black solid;
+  vertical-align: top;
+  padding: 4px 8px;
 }
 
-.title-container {
+.header-container {
+  color: white;
   display: flex;
-  cursor: pointer;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
-.title-pointer {
+.header-clickable {
+  cursor: pointer;
+}
+
+.header-pointer {
   visibility: hidden;
-  margin: none;
-  padding: none;
 }
 
-.title-container:hover .title-pointer {
-  visibility: visible;
-}
-
-.title-pointer-visible {
+.header-container:hover .header-pointer {
   visibility: visible;
 }

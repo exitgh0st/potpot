@@ -2,14 +2,16 @@
 <div class="filters-container">
   <div class="status-filter-container">
     <span>Status Filter:</span>
-    <input class="filter-input" [(ngModel)]="statusFilter" />
-    <button class="filter-button" (click)="filterStatus()">Filter</button>
+    <select class="filter-input" [(ngModel)]="statusFilter" (ngModelChange)="updateFilter()">
+      <option *ngFor="let status of statuses" [ngValue]="status">{{ status.value }}</option>
+    </select>
   </div>
 
   <div class="genre-filter-container">
     <span>Genre Filter:</span>
-    <input class="filter-input" [(ngModel)]="genreFilter" />
-    <button class="filter-button" (click)="filterGenre()">Filter</button>
+    <select class="filter-input" [(ngModel)]="genreFilter" (ngModelChange)="updateFilter()">
+      <option *ngFor="let genre of genres" [ngValue]="genre">{{ genre.title }}</option>
+    </select>
   </div>
 </div>
 

@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
+import { combineLatest, lastValueFrom } from 'rxjs';
 import { Anime } from 'src/app/interfaces/anime';
 import { Genre } from 'src/app/interfaces/genre';
 import { AnimeService } from 'src/app/services/anime.service';
+import { GenreService } from '../../services/genre.service';
+import { StatusService } from 'src/app/services/status.service';
+import { Status } from 'src/app/interfaces/status';
 
 enum SortOrder {
   ASCENDING = 'arrow_drop_up',
@@ -20,25 +23,34 @@ export class AnimeListComponent {
   animes?: Anime[];
   filteredAnimes?: Anime[];
 
+  statusFilter: Status = { id: -1, value: '-' };
+  genreFilter: Genre = { id: -1, title: '-', description: '-' };
+
+  statuses = [this.statusFilter];
+  genres = [this.genreFilter];
+
   sortDetails: { title: SortDetail; status: SortDetail } = {
     title: undefined,
     status: undefined
   };
 
-  titleSortOrder?: SortOrder;
-  statusSortOrder?: SortOrder;
-
-  statusFilter: string = 'on_hiatus';
-  genreFilter: string = 'Action';
-
-  constructor(private animeService: AnimeService) {}
+  constructor(private animeService: AnimeService, private genreService: GenreService, private statusService: StatusService) {}
 
   ngOnInit() {
     const animeList$ = this.animeService.getAnimes();
+    const statusList$ = this.statusService.getStatuses();
+    const genreList$ = this.genreService.getGenres();
 
-    lastValueFrom(animeList$).then((animeList) => {
+    lastValueFrom(combineLatest([animeList$, statusList$, genreList$])).then((data) => {
+      const animeList = data[0];
+      const statusList = data[1];
+      const genreList = data[2];
+
       this.animes = animeList;
       this.filteredAnimes = [...animeList];
+
+      this.statuses = this.statuses.concat(statusList);
+      this.genres = this.genres.concat(genreList);
     });
   }
 
@@ -91,41 +103,32 @@ export class AnimeListComponent {
     }
   }
 
-  filterByStatus(status: string) {
+  updateFilter() {
     if (!this.animes) {
       return;
     }
 
-    this.filteredAnimes = this.animes.filter((anime) => {
-      if (anime.status.value == status) {
-        return true;
-      }
-
-      return false;
-    });
-  }
-
-  filterByGenre(genreFilter: string) {
-    if (!this.animes) {
-      return;
-    }
+    const toFilterStatus = this.statusFilter.id != -1;
+    const toFilterGenre = this.genreFilter.id != -1;
 
     this.filteredAnimes = this.animes.filter((anime) => {
-      for (let genre of anime.genres) {
-        if (genre.title == genreFilter) {
-          return true;
+      if (toFilterStatus) {
+        if (anime.status.id != this.statusFilter.id) {
+          return false;
         }
       }
 
-      return false;
+      if (toFilterGenre) {
+        for (let genre of anime.genres) {
+          if (genre.id == this.genreFilter.id) {
+            return true;
+          }
+        }
+
+        return false;
+      }
+
+      return true;
     });
-  }
-
-  filterStatus() {
-    this.filterByStatus(this.statusFilter);
-  }
-
-  filterGenre() {
-    this.filterByGenre(this.genreFilter);
   }
 }

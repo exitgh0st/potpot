@@ -63,3 +63,11 @@ td {
 .header-container:hover .header-pointer {
   visibility: visible;
 }
+
+.anime-title {
+  cursor: pointer;
+}
+
+.anime-title:hover {
+  color: blue;
+}

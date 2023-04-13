@@ -6,6 +6,7 @@ import { AnimeService } from 'src/app/services/anime.service';
 import { GenreService } from '../../services/genre.service';
 import { StatusService } from 'src/app/services/status.service';
 import { Status } from 'src/app/interfaces/status';
+import { Router, ActivatedRoute } from '@angular/router';
 
 enum SortOrder {
   ASCENDING = 'arrow_drop_up',
@@ -23,8 +24,8 @@ export class AnimeListComponent {
   animes?: Anime[];
   filteredAnimes?: Anime[];
 
-  statusFilter: Status = { id: -1, value: '-' };
-  genreFilter: Genre = { id: -1, title: '-', description: '-' };
+  statusFilter: Status = { id: '-1', value: '-' };
+  genreFilter: Genre = { id: '-1', title: '-', description: '-' };
 
   statuses = [this.statusFilter];
   genres = [this.genreFilter];
@@ -34,9 +35,19 @@ export class AnimeListComponent {
     status: undefined
   };
 
-  constructor(private animeService: AnimeService, private genreService: GenreService, private statusService: StatusService) {}
+  constructor(
+    private animeService: AnimeService,
+    private genreService: GenreService,
+    private statusService: StatusService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
+    const urlQueryParamMap = this.route.snapshot.queryParamMap;
+    const statusId = urlQueryParamMap.get('status');
+    const genreId = urlQueryParamMap.get('genre');
+
     const animeList$ = this.animeService.getAnimes();
     const statusList$ = this.statusService.getStatuses();
     const genreList$ = this.genreService.getGenres();
@@ -51,6 +62,36 @@ export class AnimeListComponent {
 
       this.statuses = this.statuses.concat(statusList);
       this.genres = this.genres.concat(genreList);
+
+      if (statusId) {
+        const status = this.statuses.find((status) => {
+          if (status.id == statusId) {
+            return true;
+          }
+
+          return false;
+        });
+
+        if (status) {
+          this.statusFilter = status;
+        }
+      }
+
+      if (genreId) {
+        const genre = this.genres.find((genre) => {
+          if (genre.id == genreId) {
+            return true;
+          }
+
+          return false;
+        });
+
+        if (genre) {
+          this.genreFilter = genre;
+        }
+      }
+
+      this.updateFilter();
     });
   }
 
@@ -104,12 +145,23 @@ export class AnimeListComponent {
   }
 
   updateFilter() {
+    this.clearSortOrders();
+
     if (!this.animes) {
       return;
     }
 
-    const toFilterStatus = this.statusFilter.id != -1;
-    const toFilterGenre = this.genreFilter.id != -1;
+    const toFilterStatus = this.statusFilter.id != '-1';
+    const toFilterGenre = this.genreFilter.id != '-1';
+
+    if (toFilterStatus || toFilterGenre) {
+      const queryParams = {
+        status: toFilterStatus ? this.statusFilter.id : undefined,
+        genre: toFilterGenre ? this.genreFilter.id : undefined
+      };
+
+      this.router.navigate([], { queryParams: queryParams });
+    }
 
     this.filteredAnimes = this.animes.filter((anime) => {
       if (toFilterStatus) {
@@ -130,5 +182,9 @@ export class AnimeListComponent {
 
       return true;
     });
+  }
+
+  goToDetailsPage(id: string) {
+    this.router.navigate(['anime', id]);
   }
 }

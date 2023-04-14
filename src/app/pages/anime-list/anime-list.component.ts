@@ -7,6 +7,7 @@ import { GenreService } from '../../services/genre.service';
 import { StatusService } from 'src/app/services/status.service';
 import { Status } from 'src/app/interfaces/status';
 import { Router, ActivatedRoute } from '@angular/router';
+import { statusConstants } from 'src/app/constants/status-constants';
 
 enum SortOrder {
   ASCENDING = 'arrow_drop_up',
@@ -186,5 +187,11 @@ export class AnimeListComponent {
 
   goToDetailsPage(id: number) {
     this.router.navigate(['anime', id]);
+  }
+
+  getStatusString(status: Status) {
+    const statusString = status.value as keyof typeof statusConstants;
+
+    return statusConstants[statusString];
   }
 }

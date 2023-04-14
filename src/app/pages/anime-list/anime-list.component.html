@@ -3,7 +3,7 @@
   <div class="status-filter-container">
     <span>Status Filter:</span>
     <select class="filter-input" [(ngModel)]="statusFilter" (ngModelChange)="updateFilter()">
-      <option *ngFor="let status of statuses" [ngValue]="status">{{ status.value }}</option>
+      <option *ngFor="let status of statuses" [ngValue]="status">{{ getStatusString(status) }}</option>
     </select>
   </div>
 
@@ -45,7 +45,7 @@
     <td>{{ anime.id }}</td>
     <td class="anime-title" (click)="goToDetailsPage(anime.id)">{{ anime.title }}</td>
     <td>{{ anime.synopsis }}</td>
-    <td>{{ anime.status.value }}</td>
+    <td>{{ getStatusString(anime.status) }}</td>
     <td>{{ getGenreString(anime.genres) }}</td>
   </tr>
 </table>

@@ -9,7 +9,7 @@
   <textarea [(ngModel)]="anime.synopsis"></textarea>
 </div>
 <div class="status-filter-container">
-  <span>Status Filter:</span>
+  <span>Status:</span>
   <select class="filter-input" [(ngModel)]="anime.status">
     <option *ngFor="let status of statuses" [ngValue]="status">{{ status.value }}</option>
   </select>
@@ -17,14 +17,21 @@
 
 <div class="genre-select-container">
   <span>Genre Filter:</span>
-  <div class="select-container">
-    <select class="genre-select-hidden-accesible" [(ngModel)]="anime.genres" multiple tabindex="-1">
-      <option *ngFor="let genre of filteredGenres" [ngValue]="genre"></option>
-    </select>
+  <div class="select-container" tabindex="-1">
+    <span class="select-input select-genre-string">{{ getGenreString(anime.genres) }}</span>
 
-    <input class="select-input" [(ngModel)]="genreInput" (ngModelChange)="updateGenres($event)" class="select-input" />
-    <div class="genre-select">
-      <div *ngFor="let genre of filteredGenres" class="select-option">{{ genre.title }}</div>
+    <div class="genre-select" [class.genre-select-visible]="isGenreSelectVisible">
+      <input class="select-input" [(ngModel)]="genreInput" (ngModelChange)="updateGenres($event)" />
+
+      <div class="selected-genre" *ngFor="let selectedGenre of anime.genres">
+        {{ selectedGenre.title }}
+        <span (click)="clickGenreOption(selectedGenre)" class="selected-genre-close">X</span>
+      </div>
+      <ng-container *ngFor="let genre of filteredGenres">
+        <span (click)="clickGenreOption(genre)" *ngIf="!isSelectedGenre(genre)" class="select-option">
+          {{ genre.title }}
+        </span>
+      </ng-container>
     </div>
   </div>
 </div>

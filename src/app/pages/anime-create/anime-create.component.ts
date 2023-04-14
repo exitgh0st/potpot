@@ -27,6 +27,8 @@ export class AnimeCreateComponent {
   genres?: Genre[];
   filteredGenres?: Genre[];
 
+  isGenreSelectVisible = false;
+
   genreInput?: string;
 
   constructor(private animeService: AnimeService, private statusService: StatusService, private genreService: GenreService) {}
@@ -58,5 +60,34 @@ export class AnimeCreateComponent {
 
       return false;
     });
+  }
+
+  clickGenreOption(genreOption: Genre) {
+    this.isGenreSelectVisible = false;
+
+    for (let i = 0; i < this.anime.genres.length; i++) {
+      if (this.anime.genres[i].id === genreOption.id) {
+        this.anime.genres.splice(i, 1);
+        return;
+      }
+    }
+
+    this.anime.genres.push(genreOption);
+  }
+
+  isSelectedGenre(genreToCheck: Genre) {
+    for (let genre of this.anime.genres) {
+      if (genreToCheck.id === genre.id) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  getGenreString(genres: Genre[]) {
+    const genreMap = genres.map((genre) => genre.title);
+
+    return genreMap.join(',');
   }
 }

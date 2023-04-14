@@ -90,4 +90,10 @@ export class AnimeCreateComponent {
 
     return genreMap.join(',');
   }
+
+  createAnime() {
+    this.animeService.createAnime(this.anime).subscribe((createdAnime) => {
+      window.confirm('Successfully create anime!');
+    });
+  }
 }

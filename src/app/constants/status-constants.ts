@@ -1,5 +1,5 @@
 export const statusConstants = {
-  '-': '-',
+  '-': 'All',
   not_yet_released: 'Not Yet Released',
   currently_airing: 'Currently Airing',
   finished_airing: 'Finished Airing',

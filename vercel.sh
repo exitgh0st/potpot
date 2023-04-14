@@ -1,3 +1,5 @@
+#!/bin/sh
+
 if [[ $VERCEL_GIT_COMMIT_REF == "master"  ]] ; then 
   npm run build:production
 elif [[ $VERCEL_GIT_COMMIT_REF == "staging"  ]] ; then 

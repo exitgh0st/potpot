@@ -1,0 +1,30 @@
+<div>Create Anime</div>
+<div>Id: {{ anime.id }}</div>
+<div>
+  <span>Title:</span>
+  <input [(ngModel)]="anime.title" />
+</div>
+<div>
+  <span>Synopsis:</span>
+  <textarea [(ngModel)]="anime.synopsis"></textarea>
+</div>
+<div class="status-filter-container">
+  <span>Status Filter:</span>
+  <select class="filter-input" [(ngModel)]="anime.status">
+    <option *ngFor="let status of statuses" [ngValue]="status">{{ status.value }}</option>
+  </select>
+</div>
+
+<div class="genre-select-container">
+  <span>Genre Filter:</span>
+  <div class="select-container">
+    <select class="genre-select-hidden-accesible" [(ngModel)]="anime.genres" multiple tabindex="-1">
+      <option *ngFor="let genre of filteredGenres" [ngValue]="genre"></option>
+    </select>
+
+    <input class="select-input" [(ngModel)]="genreInput" (ngModelChange)="updateGenres($event)" class="select-input" />
+    <div class="genre-select">
+      <div *ngFor="let genre of filteredGenres" class="select-option">{{ genre.title }}</div>
+    </div>
+  </div>
+</div>

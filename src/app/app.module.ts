@@ -6,9 +6,10 @@ import { AnimeDetailComponent } from './pages/anime-detail/anime-detail.componen
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
+import { AnimeCreateComponent } from './pages/anime-create/anime-create.component';
 
 @NgModule({
-  declarations: [AppComponent, AnimeListComponent, AnimeDetailComponent],
+  declarations: [AppComponent, AnimeListComponent, AnimeDetailComponent, AnimeCreateComponent],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent]

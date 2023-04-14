@@ -1,0 +1,78 @@
+$select-font-size: 12px;
+
+.genre-select-container {
+  display: flex;
+  position: relative;
+}
+
+.select-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.select-input {
+  font-size: $select-font-size;
+  height: 100%;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  font-family: "EB Garamond";
+}
+
+.genre-select-hidden-accesible {
+  height: 1px;
+  width: 1px;
+  position: absolute;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.genre-select {
+  font-size: $select-font-size;
+  overflow: hidden;
+  position: absolute;
+  visibility: hidden;
+  width: 100%;
+  top: 100%;
+  outline: 0;
+  display: flex;
+  flex-direction: column;
+  border: 1px black solid;
+  box-sizing: border-box;
+}
+
+.genre-select-visible {
+  visibility: visible;
+}
+
+.select-option {
+  width: 100%;
+}
+
+.select-option:hover {
+  background-color: lightblue;
+}
+
+.select-container:focus-within .genre-select {
+  visibility: visible;
+}
+
+// .selected-genres-container {
+//   border-radius: 2px;
+//   height: 80%;
+//   background-color: blueviolet;
+//   position: absolute;
+//   align-items: center;
+//   justify-content: center;
+//   display: flex;
+// }
+
+// .selected-genre {
+//   justify-content: center;
+//   align-items: center;
+// }

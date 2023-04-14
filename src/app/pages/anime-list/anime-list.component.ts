@@ -24,8 +24,8 @@ export class AnimeListComponent {
   animes?: Anime[];
   filteredAnimes?: Anime[];
 
-  statusFilter: Status = { id: '-1', value: '-' };
-  genreFilter: Genre = { id: '-1', title: '-', description: '-' };
+  statusFilter: Status = { id: -1, value: '-' };
+  genreFilter: Genre = { id: -1, title: '-', description: '-' };
 
   statuses = [this.statusFilter];
   genres = [this.genreFilter];
@@ -65,7 +65,7 @@ export class AnimeListComponent {
 
       if (statusId) {
         const status = this.statuses.find((status) => {
-          if (status.id == statusId) {
+          if (status.id == parseInt(statusId)) {
             return true;
           }
 
@@ -79,7 +79,7 @@ export class AnimeListComponent {
 
       if (genreId) {
         const genre = this.genres.find((genre) => {
-          if (genre.id == genreId) {
+          if (genre.id == parseInt(genreId)) {
             return true;
           }
 
@@ -151,8 +151,8 @@ export class AnimeListComponent {
       return;
     }
 
-    const toFilterStatus = this.statusFilter.id != '-1';
-    const toFilterGenre = this.genreFilter.id != '-1';
+    const toFilterStatus = this.statusFilter.id != -1;
+    const toFilterGenre = this.genreFilter.id != -1;
 
     if (toFilterStatus || toFilterGenre) {
       const queryParams = {
@@ -184,7 +184,7 @@ export class AnimeListComponent {
     });
   }
 
-  goToDetailsPage(id: string) {
+  goToDetailsPage(id: number) {
     this.router.navigate(['anime', id]);
   }
 }

@@ -19,4 +19,8 @@ export class AnimeService {
   getAnime(id: string): Observable<Anime> {
     return this.http.get<Anime>(`${environment.apiUrl}/api/animes/${id}`);
   }
+
+  getLastAnimeId(): Observable<{ last_value: string }> {
+    return this.http.get<{ last_value: string }>(`${environment.apiUrl}/api/animes_last_id`);
+  }
 }

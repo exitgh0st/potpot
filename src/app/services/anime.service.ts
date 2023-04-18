@@ -24,7 +24,7 @@ export class AnimeService {
     return this.http.get<{ last_value: string }>(`${environment.apiUrl}/api/animes_last_id`);
   }
 
-  createAnime(anime: Anime): Observable<Anime> {
+  createAnime(anime: Partial<Anime>): Observable<Anime> {
     return this.http.post<Anime>(`${environment.apiUrl}/api/animes`, anime);
   }
 }

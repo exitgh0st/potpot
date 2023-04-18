@@ -92,8 +92,15 @@ export class AnimeCreateComponent {
   }
 
   createAnime() {
-    this.animeService.createAnime(this.anime).subscribe((createdAnime) => {
-      window.confirm('Successfully create anime!');
+    const anime: Partial<Anime> = {
+      title: this.anime.title,
+      synopsis: this.anime.synopsis,
+      status: this.anime.status,
+      genres: this.anime.genres
+    };
+
+    this.animeService.createAnime(anime).subscribe((createdAnime) => {
+      window.confirm('Successfully create anime with id: ' + createdAnime.id);
     });
   }
 }

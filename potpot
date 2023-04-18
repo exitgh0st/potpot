@@ -1,0 +1,84 @@
+potpot v0
+
+- deploy potpot frontend
+- deploy potpot backend
+- deploy sql server
+
+\*done potpot v0
+
+potpot v0.1
+front-end
+pages
+
+- anime-list
+- anime-details
+
+anime model
+
+- id
+- title
+- synopsis
+
+backend
+
+- anime-list
+- anime-details
+
+\*done potpot v0.1
+
+deploy to front-end,backend and sql server
+\*done deploy yehey
+
+potpot v0.2
+
+- add status and genre for anime
+
+  - create new tables
+    - status
+    - genre
+    - anime_genre
+  - alter anime table to add status_id
+  - add relationsMapping
+  - alter getAnime and getAnimeList on controller
+
+- create staging environment for frontend
+- create staging environment for backend
+- create staging environment for database server
+- add liquibase version control to app
+- recreate database with liquibase
+- setup liquibase for different environments
+- push out db changes to dev and staging environment
+
+\*using liquibase
+
+- input table data for status and genre (set context to prod)
+- input test data for anime (set context to test)
+
+potpot v0.3
+
+- add dummy data (at least 20 items)
+- add sorting on table for title,genre,status
+- filtering for status, genre
+
+potpot v0.4
+
+- refactor some code so that any column can be used for sorting, and anything can be filtered
+- try to fix css to make it look good, black and white theme
+- import new font for them
+- fix filter of status and genre to be dropdown boxes
+- fix anime detail page, redirect to page when clicking anime title on anime list page
+- set route when changing filters
+- anime-create page
+
+  - create new page on front-end
+  - create new api for back-end
+    - set anime_genre table after adding anime to anime table
+  - set dummy anime data for initial value
+  - get last id value from back end
+
+- create dropdown boxes for create anime page (status and genre)
+- set constants for status, so finished_airing would show as Finished Airing
+
+potpot v0.5
+
+- filter by title while typing
